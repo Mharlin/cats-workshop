@@ -61,15 +61,124 @@
         <section data-markdown>
           <textarea data-template>
             # Common imports
-            * Represented by a trait
-            * Instances for a particular type
+            * import cats._
+            * import cats.implicits._
 
             Note:
-            Type classes are Eq, Functors, Applicatives and Monads...
-            Data types Either, EitherT, Nested, Validated
+            cats._ all the type classes
+            cats.instances.all._ all instances of the standard library
           </textarea>
         </section>
 
+        <section>
+          <section data-markdown>
+            <textarea data-template>
+              # Functor
+              * Effect management for a single effect.
+              * Handle nested types instead of _.map(_.map(_.map))
+
+              Note:
+              Type classes are Eq, Functors, Applicatives and Monads...
+              Data types Either, EitherT, Nested, Validated
+            </textarea>
+          </section>
+          <section data-markdown>
+            <textarea data-template>
+              ```
+              import cats.Functor
+              import cats.implicits._
+
+              val listOption = List(Some(1), None, Some(2))
+
+
+              Functor[List].compose[Option].map(listOption)(_ + 1)
+              ```
+            </textarea>
+          </section>
+          <section data-markdown>
+            <textarea data-template>
+              ```
+              import cats.data.Nested
+              import cats.implicits._
+
+              val listOption = List(Some(1), None, Some(2))
+              Nested(listOption).map(_ + 1)
+              ```
+            </textarea>
+          </section>
+        </section>
+
+        <section data-markdown>
+          <textarea data-template>
+            # Applicative
+            * Extends `Functor` with `pure`
+            * Used with multiple independent effects
+          </textarea>
+        </section>
+
+        <section data-markdown>
+          <textarea data-template>
+            # Monad
+            * Extends `Applicative` with `flatten`
+            * Takes values from nested context `F[F[A]]` where F is the context and flattens it to F[A]
+            * Sequencing for computations
+          </textarea>
+        </section>
+
+        <section>
+          <section data-markdown>
+            <textarea data-template>
+              # Either
+              * Right biased
+            </textarea>
+          </section>
+          <section data-markdown>
+            <textarea data-template>
+              ```
+              val either1: Either[String, Int] = Right(10)
+              val either2: Either[String, Int] = Right(32)
+
+              for {
+              a <- either1
+                b <- either2
+              } yield a + b
+              ```
+            </textarea>
+          </section>
+          <section data-markdown>
+            <textarea data-template>
+              ```
+              import scala.cats.either._
+              val a = 3.asRight[String]
+              // a: Either[String, Int] = Right(3)
+
+              "error".asLeft[Int].recoverWith {
+              case str: String => Right(-1)
+              }
+              // Either[String, Int] = Right(-1)
+              ```
+            </textarea>
+          </section>
+          <section data-markdown>
+            <textarea data-template>
+              ```
+              Either.fromTry(scala.util.Try("foo".toInt))
+              Either.fromOption(None, "failed")
+              // Either[Nothing, Int] = Left(failed)
+
+              -1.asRight[String].ensure("Must be non-negative")(_ > 0)
+              ```
+            </textarea>
+          </section>
+          <section data-markdown>
+            <textarea data-template>
+              ```
+              "hello".asRight[String].map(_ + "!")
+              // Either[String, String] = hello!
+              ```
+            </textarea>
+          </section>
+        </section>
 
 			</div>
 		</div>

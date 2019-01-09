@@ -56,7 +56,10 @@ import cats.implicits._
 
 val listOption = List(Some(1), None, Some(2))
 
+
 Functor[List].compose[Option].map(listOption)(_ + 1)
+val nested: Nested[List, Option, Int] = Nested(listOption)
+nested.map(i => i)
 ```
 
 another way if there is more nesting is to use the Nested class
