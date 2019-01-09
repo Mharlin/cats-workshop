@@ -24,8 +24,53 @@
 	<body>
 		<div class="reveal">
 			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2</section>
+        <section>
+          <h1>Cats</h1>
+          <img src="http://plastic-idolatry.com/erik/cats2.png" />
+          <aside class="notes">
+            Name from Category theory
+            Abstraction for functional programming in Scala
+          </aside>
+        </section>
+
+        <section data-markdown>
+          <textarea data-template>
+            # Parts of cats
+            * Type classes
+            * Implicits
+            * Data Types
+
+            Note:
+            Type classes are Eq, Functors, Applicatives and Monads...
+            Data types Either, EitherT, Nested, Validated
+          </textarea>
+        </section>
+
+        <section data-markdown>
+          <textarea data-template>
+            # Type class
+            * Represented by a trait
+            * Instances for a particular type
+
+            Note:
+            Type classes are Eq, Functors, Applicatives and Monads...
+            Data types Either, EitherT, Nested, Validated
+          </textarea>
+        </section>
+
+        <section data-markdown>
+          <textarea data-template>
+            # Common imports
+            * Represented by a trait
+            * Instances for a particular type
+
+            Note:
+            Type classes are Eq, Functors, Applicatives and Monads...
+            Data types Either, EitherT, Nested, Validated
+          </textarea>
+        </section>
+
+
 			</div>
 		</div>
 
@@ -38,10 +83,12 @@
 			// - https://github.com/hakimel/reveal.js#dependencies
 			Reveal.initialize({
 				dependencies: [
-					{ src: 'plugin/markdown/marked.js' },
-					{ src: 'plugin/markdown/markdown.js' },
-					{ src: 'plugin/notes/notes.js', async: true },
-					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+          { src: 'plugin/markdown/marked.js' },
+          { src: 'plugin/markdown/markdown.js' },
+          { src: 'plugin/notes/notes.js', async: true },
+          { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
 				]
 			});
 		</script>
